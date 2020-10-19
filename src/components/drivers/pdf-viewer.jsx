@@ -4,6 +4,7 @@ import React from 'react';
 import VisibilitySensor from 'react-visibility-sensor';
 import { PDFJS } from 'pdfjs-dist/build/pdf.combined';
 import 'pdfjs-dist/web/compatibility';
+import Loading from "../loading";
 
 PDFJS.disableWorker = true;
 const INCREASE_PERCENTAGE = 0.2;
@@ -138,15 +139,23 @@ export default class PDFDriver extends React.Component {
 
   renderLoading() {
     if (this.state.pdf) return null;
-    return (<div className="pdf-loading">LOADING ({this.state.percent}%)</div>);
+    return <Loading />;
+    // return (<div className="pdf-loading">LOADING ({this.state.percent}%)</div>);
   }
 
   render() {
     return (
-      <div className="pdf-viewer-container">
-        <div className="pdf-viewer" ref={node => this.container = node} >
+      <div
+        className="pdf-viewer-container"
+        style={{ width: "100%", height: "100%" }}
+      >
+        <div
+          className="pdf-viewer"
+          style={{ width: "100%", height: "100%" }}
+          ref={(node) => (this.container = node)}
+        >
           <div className="pdf-controlls-container">
-            <div className="view-control" onClick={this.increaseZoom} >
+            <div className="view-control" onClick={this.increaseZoom}>
               <i className="zoom-in" />
             </div>
             <div className="view-control" onClick={this.resetZoom}>
